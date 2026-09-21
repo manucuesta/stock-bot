@@ -45,7 +45,6 @@ def parse_price(text: str) -> float | None:
 def check(source: dict) -> dict:
     try:
         with sync_playwright() as playwright:
-
             browser = playwright.chromium.launch(
                 headless=True
             )
@@ -69,10 +68,23 @@ def check(source: dict) -> dict:
                 timeout=30000,
             )
 
-            page.wait_for_timeout(3000)
+            page.wait_for_timeout(5000)
 
+            title = page.title()
             text = page.locator("body").inner_text()
             text_lower = text.lower()
+
+            # --------------------------------------------------
+            # DIAGNÓSTICO TEMPORAL
+            # --------------------------------------------------
+
+            print("\n========== PCCOMPONENTES DIAGNOSTIC ==========")
+            print(f"Título: {title}")
+            print(f"URL final: {page.url}")
+            print(f"Longitud texto: {len(text)}")
+            print("\nPrimeros 5000 caracteres:")
+            print(text[:5000])
+            print("\n===============================================\n")
 
             # --------------------------------------------------
             # Protección / CAPTCHA
@@ -85,6 +97,8 @@ def check(source: dict) -> dict:
                 "verify you are human",
                 "robot check",
                 "just a moment",
+                "verificación de seguridad",
+                "verificacion de seguridad",
             ]
 
             for term in protection_terms:
@@ -145,29 +159,22 @@ def check(source: dict) -> dict:
                 }
 
             # --------------------------------------------------
-            # Producto disponible
-            #
-            # En PcComponentes hay precios de distintas
-            # variantes, por lo que evitamos coger simplemente
-            # el primer precio de la página.
+            # Producto disponible -> buscar precio
             # --------------------------------------------------
 
             price = None
 
-            # Buscar bloques que contengan señales de compra.
             candidate_selectors = [
                 "[data-testid*='price']",
                 "[class*='price']",
             ]
 
             for selector in candidate_selectors:
-
                 elements = page.locator(selector)
 
                 count = min(elements.count(), 30)
 
                 for index in range(count):
-
                     try:
                         element = elements.nth(index)
                         element_text = element.inner_text()
@@ -213,13 +220,10 @@ def check(source: dict) -> dict:
             return {
                 "status": "available",
                 "price": price,
-                "reason": (
-                    f"Available - {price:.2f} €"
-                ),
+                "reason": f"Available - {price:.2f} €",
             }
 
     except Exception as exc:
-
         return {
             "status": "unknown",
             "price": None,
