@@ -21,12 +21,13 @@ AVAILABLE_TERMS = [
 def parse_price(text: str) -> float | None:
     """
     Convierte precios españoles como:
+
     99,99 €
     1.299,99 €
     99.99 €
+
     en float.
     """
-
     if not text:
         return None
 
@@ -40,7 +41,6 @@ def parse_price(text: str) -> float | None:
 
     value = match.group(1)
 
-    # Formato español: 1.299,99
     if "." in value and "," in value:
         value = value.replace(".", "").replace(",", ".")
     else:
@@ -59,7 +59,6 @@ def check(source: dict) -> dict:
 
     try:
         with sync_playwright() as playwright:
-
             browser = playwright.chromium.launch(
                 headless=True
             )
@@ -85,12 +84,25 @@ def check(source: dict) -> dict:
 
             # Esperamos a que Carrefour termine de cargar
             # contenido dinámico.
-            page.wait_for_timeout(3000)
+            page.wait_for_timeout(5000)
 
             title = page.title()
+
             text = page.locator("body").inner_text()
 
             text_lower = text.lower()
+
+            # --------------------------------------------------
+            # DIAGNÓSTICO TEMPORAL
+            # --------------------------------------------------
+
+            print("\n========== CARREFOUR DIAGNOSTIC ==========")
+            print(f"Título: {title}")
+            print(f"URL final: {page.url}")
+            print(f"Longitud texto: {len(text)}")
+            print("\nPrimeros 5000 caracteres:")
+            print(text[:5000])
+            print("\n===========================================\n")
 
             # --------------------------------------------------
             # 1. Comprobar si Carrefour está bloqueando el acceso
@@ -207,7 +219,10 @@ def check(source: dict) -> dict:
                 return {
                     "status": "unknown",
                     "price": None,
-                    "reason": "Product appears available but price could not be detected",
+                    "reason": (
+                        "Product appears available "
+                        "but price could not be detected"
+                    ),
                 }
 
             return {
@@ -217,7 +232,6 @@ def check(source: dict) -> dict:
             }
 
     except Exception as exc:
-
         return {
             "status": "unknown",
             "price": None,
