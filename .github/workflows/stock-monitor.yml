@@ -42,6 +42,13 @@ jobs:
 
           git add data/state.json
 
-          git diff --cached --quiet || git commit -m "Update stock state"
+          if git diff --cached --quiet; then
+            echo "No state changes"
+            exit 0
+          fi
+
+          git commit -m "Update stock state"
+
+          git pull --rebase origin main
 
           git push
