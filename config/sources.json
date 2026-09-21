@@ -1,0 +1,58 @@
+{
+    "sources": [
+        {
+            "id": "zelda-test",
+            "name": "Switch 2 - Zelda",
+            "store": "Amazon",
+            "url": "https://www.amazon.es/gp/aw/d/B0F2TN43GH",
+            "type": "amazon",
+            "price_max": null,
+            "enabled": true
+        },
+        {
+            "id": "onimusha-carrefour-test",
+            "name": "Onimusha Premium Deluxe PS5",
+            "store": "Carrefour",
+            "url": "https://www.carrefour.es/onimusha-way-of-the-sword-premium-deluxe-edition-para-ps5/VC4A-33936422/p",
+            "type": "carrefour",
+            "price_max": 110,
+            "enabled": true
+        },
+        {
+            "id": "onimusha-game-test",
+            "name": "Onimusha Premium Deluxe PS5",
+            "store": "GAME",
+            "url": "https://www.game.es/videojuegos/accion/playstation-5/onimusha-way-of-the-sword-premium-deluxe/262737",
+            "type": "game",
+            "price_max": 110,
+            "enabled": true
+        },
+        {
+            "id": "onimusha-mediamarkt-test",
+            "name": "Onimusha Premium Deluxe PS5",
+            "store": "MediaMarkt",
+            "url": "https://www.mediamarkt.es/es/product/_ps5-onimusha-way-of-the-sword-premium-deluxe-edition-steelbook-1668166.html",
+            "type": "mediamarkt",
+            "price_max": 110,
+            "enabled": true
+        },
+        {
+            "id": "onimusha-pccomponentes-test",
+            "name": "Onimusha Premium Deluxe PS5",
+            "store": "PcComponentes",
+            "url": "https://www.pccomponentes.com/onimusha-way-of-the-sword-premium-deluxe-steelbook-ps5",
+            "type": "pccomponentes",
+            "price_max": 110,
+            "enabled": true
+        },
+        {
+            "id": "onimusha-elcorteingles-test",
+            "name": "Onimusha PS5 - El Corte Inglés",
+            "store": "El Corte Inglés",
+            "url": "https://www.elcorteingles.es/videojuegos/A200972166-onimusha-way-of-the-sword-playstation-5/",
+            "type": "elcorteingles",
+            "price_max": 110,
+            "enabled": true
+        }
+    ]
+}
