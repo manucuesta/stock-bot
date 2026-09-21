@@ -6,6 +6,12 @@ on:
 permissions:
   contents: write
 
+# Evita que dos ejecuciones intenten modificar state.json
+# al mismo tiempo.
+concurrency:
+  group: stock-monitor
+  cancel-in-progress: false
+
 jobs:
   monitor:
     runs-on: ubuntu-latest
@@ -13,6 +19,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -49,6 +57,11 @@ jobs:
 
           git commit -m "Update stock state"
 
-          git pull --rebase origin main
+          echo "Fetching latest remote state..."
+          git fetch origin main
 
-          git push
+          echo "Rebasing state update..."
+          git rebase origin/main
+
+          echo "Pushing state..."
+          git push origin HEAD:main
