@@ -1,3 +1,28 @@
 {
-    "states": {}
+  "states": {
+    "zelda-test": {
+      "qualifies": false,
+      "price": null
+    },
+    "onimusha-carrefour-test": {
+      "qualifies": false,
+      "price": null
+    },
+    "onimusha-game-test": {
+      "qualifies": false,
+      "price": null
+    },
+    "onimusha-mediamarkt-test": {
+      "qualifies": false,
+      "price": null
+    },
+    "onimusha-pccomponentes-test": {
+      "qualifies": false,
+      "price": null
+    },
+    "onimusha-elcorteingles-test": {
+      "qualifies": false,
+      "price": null
+    }
+  }
 }
